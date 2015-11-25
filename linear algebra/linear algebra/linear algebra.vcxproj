@@ -146,14 +146,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="edge.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="table.cpp" />
+    <ClCompile Include="node.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="draw.h" />
+    <ClInclude Include="edge.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="network.h" />
+    <ClInclude Include="node.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="table.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="linear algebra.rc" />

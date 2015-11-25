@@ -11,7 +11,7 @@
 #include <iostream>
 
 #include "resource.h"
-#include "table.h"
+#include "draw.h"
 
 #define SIZEW 800
 #define SIZEH 400

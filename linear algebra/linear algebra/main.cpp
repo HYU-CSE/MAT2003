@@ -3,7 +3,8 @@
 
 HINSTANCE nInst;
 
-#define abs(x) (x) > 0 ? (x) : (-(x))
+nodeTable * nodes = new nodeTable();
+edgeTable * edges = new edgeTable(nodes);
 
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -63,17 +64,60 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 	{
 		case WM_CREATE:
 		{
-			nodeTable nodes;
-			edgeTable * edges = nodes.edges();
-			vector<size_t> node_index;
+			vector<size_t> node_index, edge_index;
 			
-			node_index.push_back(nodes.add(100, 100));
-			node_index.push_back(nodes.add(100, 200));
-			node_index.push_back(nodes.add(100, 300));
-			node_index.push_back(nodes.add(100, 400));
-			node_index.push_back(nodes.add(100, 500));
-			node_index.push_back(nodes.add(100, 600));
+			node_index.push_back(nodes->add(100, 200));
+			node_index.push_back(nodes->add(200, 100));
+			node_index.push_back(nodes->add(200, 200));
+			node_index.push_back(nodes->add(200, 300));
+			node_index.push_back(nodes->add(300, 100));
+			node_index.push_back(nodes->add(300, 200));
+			node_index.push_back(nodes->add(300, 300));
+			node_index.push_back(nodes->add(400, 100));
+			node_index.push_back(nodes->add(400, 200));
+			node_index.push_back(nodes->add(400, 300));
+			node_index.push_back(nodes->add(500, 100));
+			node_index.push_back(nodes->add(500, 200));
+			node_index.push_back(nodes->add(500, 300));
+			node_index.push_back(nodes->add(600, 200));
 			
+			edge_index.push_back(edges->add(0, 1, 2, 3));
+			edge_index.push_back(edges->add(0, 2, 5, 5));
+			edge_index.push_back(edges->add(0, 3, 4, 10));
+
+			edge_index.push_back(edges->add(1, 4, 4, 3));
+			edge_index.push_back(edges->add(1, 5, 5, 5));
+			edge_index.push_back(edges->add(1, 6, 2, 10));
+			edge_index.push_back(edges->add(2, 4, 4, 3));
+			edge_index.push_back(edges->add(2, 5, 2, 5));
+			edge_index.push_back(edges->add(2, 6, 5, 10));
+			edge_index.push_back(edges->add(3, 4, 2, 3));
+			edge_index.push_back(edges->add(3, 5, 5, 5));
+			edge_index.push_back(edges->add(3, 6, 4, 10));
+
+			edge_index.push_back(edges->add(4, 7, 5, 3));
+			edge_index.push_back(edges->add(4, 8, 2, 5));
+			edge_index.push_back(edges->add(4, 9, 4, 10));
+			edge_index.push_back(edges->add(5, 7, 2, 3));
+			edge_index.push_back(edges->add(5, 8, 5, 5));
+			edge_index.push_back(edges->add(5, 9, 2, 10));
+			edge_index.push_back(edges->add(6, 7, 2, 3));
+			edge_index.push_back(edges->add(6, 8, 4, 5));
+			edge_index.push_back(edges->add(6, 9, 5, 10));
+
+			edge_index.push_back(edges->add(7, 10, 2, 3));
+			edge_index.push_back(edges->add(7, 11, 5, 5));
+			edge_index.push_back(edges->add(7, 12, 2, 10));
+			edge_index.push_back(edges->add(8, 10, 2, 3));
+			edge_index.push_back(edges->add(8, 11, 4, 5));
+			edge_index.push_back(edges->add(8, 12, 5, 10));
+			edge_index.push_back(edges->add(9, 10, 2, 3));
+			edge_index.push_back(edges->add(9, 11, 4, 5));
+			edge_index.push_back(edges->add(9, 12, 2, 10));
+
+			edge_index.push_back(edges->add(10, 13, 4, 3));
+			edge_index.push_back(edges->add(11, 13, 5, 5));
+			edge_index.push_back(edges->add(12, 13, 2, 10));
 
 			break;
 		}
@@ -134,8 +178,8 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 			SetBkMode(mDC, TRANSPARENT);
 			SetStretchBltMode(mDC, COLORONCOLOR);
 			{//draw
-
-
+				draw_edge_table(mDC, *edges);
+				draw_node_table(mDC, *nodes);
 			}
 			BitBlt(hdc, 0, 0, mRC.right, mRC.bottom, mDC, 0, 0, SRCCOPY);
 			SelectObject(mDC, mOldBitmap);

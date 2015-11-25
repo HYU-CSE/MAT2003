@@ -1,75 +1,4 @@
-#include "table.h"
-
-size_t nodeTable::insert(node* node)
-{
-	size_t ret = this->list.size();
-	this->list.insert({ this->list.size(), node });
-	return ret;
-}
-void nodeTable::erase(size_t index)
-{
-	this->list.erase(this->find(index));
-}
-size_t nodeTable::find(node* node_)
-{
-	for (NODE_ITER iter = this->list.begin(); iter != this->list.end(); iter++)
-		if (iter->second == node_)
-			return iter->first;
-	return 0;
-}
-node* nodeTable::find(size_t value)
-{
-	for (NODE_ITER iter = this->list.begin(); iter != this->list.end(); iter++)
-		if (iter->first == value)
-			return iter->second;
-	return nullptr;
-}
-
-edgeTable* nodeTable::edges() 
-{
-	return this->edges_;
-}
-
-NODE_ITER nodeTable::begin()
-{
-	return this->list.begin();
-}
-NODE_ITER nodeTable::end()
-{
-	return this->list.end();
-}
-
-
-size_t nodeTable::add()
-{
-	node * node_ = new node();
-	return this->insert(node_);
-}
-size_t nodeTable::add(int x, int y)
-{
-	node * node_ = new node(x, y);
-	return this->insert(node_);
-}
-size_t nodeTable::add(int x, int y, int r)
-{
-	node * node_ = new node(x, y, r);
-	return this->insert(node_);
-}
-size_t nodeTable::add(node* node)
-{
-	return this->insert(node);
-}
-
-void nodeTable::del(size_t index)
-{
-	return this->erase(index);
-}
-void nodeTable::del(node* node)
-{
-	return this->erase(this->find(node));
-}
-
-
+#include "edge.h"
 
 size_t edgeTable::insert(edge* edge)
 {
@@ -88,7 +17,7 @@ size_t edgeTable::find(edge* edge_)
 		if (iter->second == edge_)
 			return iter->first;
 	return 0;
-		
+
 }
 edge* edgeTable::find(size_t value)
 {
@@ -112,6 +41,18 @@ size_t edgeTable::add()
 {
 	edge * edge_ = new edge();
 	return this->insert(edge_);
+}
+size_t edgeTable::add(size_t from, size_t to)
+{
+	return this->add(this->nodes->find(from), this->nodes->find(to));
+}
+size_t edgeTable::add(size_t from, size_t to, COST_TYPE cost, FLOW_TYPE flow)
+{
+	return this->add(this->nodes->find(from), this->nodes->find(to), cost, flow);
+}
+size_t edgeTable::add(size_t from, size_t to, COST_TYPE cost, FLOW_TYPE flow, long color)
+{
+	return this->add(this->nodes->find(from), this->nodes->find(to), cost, flow, color);
 }
 size_t edgeTable::add(node * from, node * to)
 {
