@@ -7,11 +7,15 @@
 
 #endif
 
-#include <stdlib.h>
-#include "resource.h"
+#include <fstream>
+#include <iostream>
 
-#define SIZEW 400
-#define SIZEH 600
+#include "resource.h"
+#include "table.h"
+
+#define SIZEW 800
+#define SIZEH 400
+
 #define SIZEWW SIZEW + 16
 #define SIZEHH SIZEH + 39
 

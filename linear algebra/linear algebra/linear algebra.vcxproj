@@ -147,10 +147,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="table.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
+    <ClInclude Include="network.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="table.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="linear algebra.rc" />
