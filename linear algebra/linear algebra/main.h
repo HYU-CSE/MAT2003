@@ -13,12 +13,14 @@
 #include "resource.h"
 #include "draw.h"
 
-#define SIZEW 800
-#define SIZEH 400
+#define SIZEW 1000
+#define SIZEH 500
 
 #define SIZEWW SIZEW + 16
 #define SIZEHH SIZEH + 39
 
-static POINT point;
+extern POINT point, sPoint;
+extern node* sNode, *bNode;
+extern edge* sEdge;
 
 using namespace std;

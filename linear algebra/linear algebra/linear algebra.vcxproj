@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="draw.cpp" />
     <ClCompile Include="edge.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="node.cpp" />

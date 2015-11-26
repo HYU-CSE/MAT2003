@@ -6,6 +6,14 @@ HINSTANCE nInst;
 nodeTable * nodes = new nodeTable();
 edgeTable * edges = new edgeTable(nodes);
 
+POINT point, sPoint;
+
+bool sft = false;
+bool eve = false;
+
+node* sNode = nullptr, *bNode = nullptr;
+edge* sEdge = nullptr;
+
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -118,7 +126,6 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 			edge_index.push_back(edges->add(10, 13, 4, 3));
 			edge_index.push_back(edges->add(11, 13, 5, 5));
 			edge_index.push_back(edges->add(12, 13, 2, 10));
-
 			break;
 		}
 		case WM_TIMER:
@@ -137,28 +144,88 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 		}
 		case WM_KEYDOWN:
 		{
-		
+			if (wParam == 16) 
+				sft = true;
+			InvalidateRect(hwnd, NULL, FALSE);
+			break;
+		}
+		case WM_KEYUP:
+		{
+			if (wParam == 16)
+				sft = false;
+			InvalidateRect(hwnd, NULL, FALSE);
+		}
+		case WM_RBUTTONDOWN:
+		{
+			POINT pt = { lParam & 0xffff, lParam >> 16 };
+			FOR_EACH_NODE((*nodes), iter)
+			{
+				node * node_ = iter->second;
+				if (node_->x - node_->r < pt.x && node_->x + node_->r > pt.x &&
+					node_->y - node_->r < pt.y && node_->y + node_->r > pt.y)
+				{
+					edges->del(node_);
+					nodes->del(node_);
+					sNode = nullptr;
+					bNode = nullptr;
+					break;
+				}
+			}
 			InvalidateRect(hwnd, NULL, FALSE);
 			break;
 		}
 		case WM_LBUTTONDOWN:
 		{
+			eve = false;
+			POINT pt = { lParam & 0xffff, lParam >> 16 };
+			FOR_EACH_NODE((*nodes), iter)
+			{
+				node * node_ = iter->second;
+				if (node_->x - node_->r < pt.x && node_->x + node_->r > pt.x &&
+					node_->y - node_->r < pt.y && node_->y + node_->r > pt.y)
+				{
+					sNode = node_;
+					sPoint = { pt.x - node_->x, pt.y - node_->y };
+					break;
+				}
+			}
+			if (sft && bNode != nullptr)
+			{
+				edges->add(bNode, sNode, 2, 4);
+				eve = true;
+			}
 			InvalidateRect(hwnd, NULL, FALSE);
-			break;
-		}
-		case WM_LBUTTONDBLCLK:
-		{
-
-			break;
-		}
-		case WM_COMMAND:
-		{
 			break;
 		}
 		case WM_MOUSEMOVE:
 		{
-			point.x = lParam & 0xffff;
-			point.y = lParam >> 16;
+			if (sNode != nullptr)
+			{
+				point.x = lParam & 0xffff;
+				point.y = lParam >> 16;
+
+				sNode->x = (point.x - sPoint.x);
+				sNode->y = (point.y - sPoint.y);
+
+				InvalidateRect(hwnd, NULL, FALSE);
+			}
+			break;
+		}
+		case WM_LBUTTONUP:
+		{
+			InvalidateRect(hwnd, NULL, FALSE);
+			if (!eve)
+				bNode = sNode;
+
+			sNode = nullptr;
+			break;
+		}
+		case WM_LBUTTONDBLCLK:
+		{
+			break;
+		}
+		case WM_COMMAND:
+		{
 			break;
 		}
 		case WM_PAINT:

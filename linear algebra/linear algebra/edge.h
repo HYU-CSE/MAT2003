@@ -1,13 +1,13 @@
 #pragma once
 
-#include <unordered_map>
+#include <unordered_set>
 
 #include "node.h"
 
 #define COST_TYPE int
 #define FLOW_TYPE int
 
-#define EDGE_ITER unordered_map<size_t, edge*>::iterator
+#define EDGE_ITER unordered_set<edge*>::iterator
 
 #define FOR_EACH_EDGE(TABLE, ITER)	\
 	for(EDGE_ITER (ITER) = (TABLE).begin(); (ITER) != (TABLE).end(); (ITER)++)
@@ -34,11 +34,11 @@ public:
 
 class edgeTable {
 private:
-	unordered_map<size_t, edge*> list;
+	unordered_set<edge*> list;
 	nodeTable * nodes;
 
-	size_t insert(edge* node);
-	void erase(size_t index);
+	size_t insert(edge* edge);
+	void erase(edge* edge);
 public:
 	edgeTable(nodeTable* nodes) : nodes(nodes) {}
 	~edgeTable() {}
@@ -56,7 +56,7 @@ public:
 
 	void del(size_t index);
 	void del(edge* edge);
+	void del(node* node);
 
-	edge* find(size_t index);
-	size_t find(edge* edge_);
+	friend class node;
 };

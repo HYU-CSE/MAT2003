@@ -3,29 +3,14 @@
 size_t edgeTable::insert(edge* edge)
 {
 	size_t ret = this->list.size();
-	this->list.insert({ this->list.size(), edge });
+	this->list.insert(edge);
 	return ret;
 }
-void edgeTable::erase(size_t index)
+void edgeTable::erase(edge* edge)
 {
-	this->list.erase(index);
+	this->list.erase(edge);
 }
 
-size_t edgeTable::find(edge* edge_)
-{
-	for (EDGE_ITER iter = this->list.begin(); iter != this->list.end(); iter++)
-		if (iter->second == edge_)
-			return iter->first;
-	return 0;
-
-}
-edge* edgeTable::find(size_t value)
-{
-	for (EDGE_ITER iter = this->list.begin(); iter != this->list.end(); iter++)
-		if (iter->first == value)
-			return iter->second;
-	return nullptr;
-}
 
 EDGE_ITER edgeTable::begin()
 {
@@ -35,7 +20,6 @@ EDGE_ITER edgeTable::end()
 {
 	return this->list.end();
 }
-
 
 size_t edgeTable::add()
 {
@@ -70,11 +54,13 @@ size_t edgeTable::add(node * from, node * to, COST_TYPE cost, FLOW_TYPE flow, lo
 	return this->insert(edge_);
 }
 
-void edgeTable::del(size_t index)
+void edgeTable::del(node* node)
 {
-	return this->erase(index);
-}
-void edgeTable::del(edge* edge)
-{
-	return this->erase(this->find(edge));
+	for (EDGE_ITER iter = this->list.begin(); iter != this->list.end();)
+	{
+		if ((*iter)->from == node || (*iter)->to == node)
+			iter = this->list.erase(iter);
+		else
+			iter++;
+	}
 }
