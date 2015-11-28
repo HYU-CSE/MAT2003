@@ -1,11 +1,6 @@
 #pragma once
 
-#include <unordered_map>
-
-#define NODE_ITER unordered_map<size_t, node*>::iterator
-
-#define FOR_EACH_NODE(TABLE, ITER)	\
-	for(NODE_ITER (ITER) = (TABLE).begin(); (ITER) != (TABLE).end(); (ITER)++)
+#include <vector>
 
 using namespace std;
 
@@ -20,11 +15,17 @@ public:
 	~node() {}
 };
 
+#define NODE_ITER vector<node*>::iterator
+#define FOR_EACH_NODE(TABLE, IDX)	\
+	for(size_t (IDX) = 0; (IDX) < (TABLE).size(); (IDX)++)
+
 class nodeTable {
 private:
-	unordered_map<size_t, node*> list;
+	vector<node*> nodes;
 
+	size_t max_dx = 0;
 	size_t insert(node* node);
+	void erase(node* index);
 	void erase(size_t index);
 public:
 	nodeTable() {}
@@ -33,11 +34,14 @@ public:
 	NODE_ITER begin();
 	NODE_ITER end();
 
+	size_t size();
+	node * at(size_t index);
+
 	size_t add();
 	size_t add(int x, int y);
 	size_t add(int x, int y, int r);
 	size_t add(node* node);
-
+	
 	void del(size_t index);
 	void del(node* node);
 

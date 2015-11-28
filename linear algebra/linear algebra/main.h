@@ -9,6 +9,9 @@
 
 #include <fstream>
 #include <iostream>
+#include <functional>
+#include <cmath>
+#include <string>
 
 #include "resource.h"
 #include "draw.h"

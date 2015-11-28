@@ -1,37 +1,57 @@
 #include "node.h"
 
-size_t nodeTable::insert(node* node)
+size_t nodeTable::insert(node* node_)
 {
-	size_t ret = this->list.size();
-	this->list.insert({ this->list.size(), node });
-	return ret;
+	for (NODE_ITER iter = this->nodes.begin(); iter != this->nodes.end(); iter++)
+		if ((*iter) == node_)
+			return -1;
+	this->nodes.push_back(node_);
+	return this->nodes.size() - 1;
 }
-void nodeTable::erase(size_t index)
+void nodeTable::erase(node* node_)
 {
-	this->list.erase(index);
+	for (NODE_ITER iter = this->nodes.begin(); iter != this->nodes.end(); iter++)
+		if ((*iter) == node_)
+		{
+			this->nodes.erase(iter);
+			break;
+		}
+}
+void nodeTable::erase(size_t value)
+{
+	this->nodes.erase(this->nodes.begin() + value);
 }
 size_t nodeTable::find(node* node_)
 {
-	for (NODE_ITER iter = this->list.begin(); iter != this->list.end(); iter++)
-		if (iter->second == node_)
-			return iter->first;
+	size_t idx = 0;
+	for (NODE_ITER iter = this->nodes.begin(); iter != this->nodes.end(); iter++, idx++)
+		if ((*iter) == node_)
+			return idx;
 	return 0;
 }
 node* nodeTable::find(size_t value)
 {
-	for (NODE_ITER iter = this->list.begin(); iter != this->list.end(); iter++)
-		if (iter->first == value)
-			return iter->second;
+	if (value < this->nodes.size())
+		return this->nodes[value];
 	return nullptr;
 }
 
 NODE_ITER nodeTable::begin()
 {
-	return this->list.begin();
+	return this->nodes.begin();
 }
 NODE_ITER nodeTable::end()
 {
-	return this->list.end();
+	return this->nodes.end();
+}
+
+size_t nodeTable::size()
+{
+	return this->nodes.size();
+}
+node * nodeTable::at(size_t index)
+{
+	return this->nodes[index];
 }
 
 size_t nodeTable::add()
@@ -56,9 +76,9 @@ size_t nodeTable::add(node* node)
 
 void nodeTable::del(size_t index)
 {
-	return this->erase(index);
+	return this->erase(this->find(index));
 }
 void nodeTable::del(node* node)
 {
-	return this->erase(this->find(node));
+	return this->erase(node);
 }

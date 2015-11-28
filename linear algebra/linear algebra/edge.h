@@ -1,16 +1,11 @@
 #pragma once
 
-#include <unordered_set>
+#include <vector>
 
 #include "node.h"
 
 #define COST_TYPE int
 #define FLOW_TYPE int
-
-#define EDGE_ITER unordered_set<edge*>::iterator
-
-#define FOR_EACH_EDGE(TABLE, ITER)	\
-	for(EDGE_ITER (ITER) = (TABLE).begin(); (ITER) != (TABLE).end(); (ITER)++)
 
 using namespace std;
 
@@ -30,21 +25,32 @@ public:
 	edge(node * from, node * to, COST_TYPE cost, FLOW_TYPE flow, long color) :
 		from(from), to(to), cost(cost), flow(flow), color(color) {}
 	~edge() {}
+	
+	bool operator==(const edge& e) { return e.to == this->to && e.from == this->from && e.cost == this->cost && e.flow == this->flow; }
 };
+
+#define EDGE_ITER vector<edge*>::iterator
+
+#define FOR_EACH_EDGE(TABLE, IDX)	\
+	for(size_t (IDX) = 0; IDX < (TABLE).size(); (IDX)++)
 
 class edgeTable {
 private:
-	unordered_set<edge*> list;
+	vector<edge*> edges;
 	nodeTable * nodes;
 
 	size_t insert(edge* edge);
 	void erase(edge* edge);
+	void erase(size_t index);
 public:
 	edgeTable(nodeTable* nodes) : nodes(nodes) {}
 	~edgeTable() {}
 
 	EDGE_ITER begin();
 	EDGE_ITER end();
+
+	size_t size();
+	edge* at(size_t index);
 
 	size_t add();
 	size_t add(size_t from, size_t to);
