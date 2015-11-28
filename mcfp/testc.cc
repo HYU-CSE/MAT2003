@@ -10,7 +10,6 @@ int fibonachi(int i)
 	else
 		return fibonachi(i-1) + fibonachi(i-2);
 }
-
 int main()
 {
 	cout << CLOCKS_PER_SEC << endl;
