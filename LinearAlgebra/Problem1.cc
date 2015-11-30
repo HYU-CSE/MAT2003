@@ -1,15 +1,17 @@
 #include <iostream>
 #include <fstream>
-#include <algorithm>
 #include <vector>
 #include <queue>
+#include <algorithm>
 #include <functional>
 
-#include "graph.h"
-#include "measure.h"
+#include "headers\graph.h"
+#include "headers\measure.h"
+#include "headers\fileIO.h"
 
 #define INF 123456789
 
+bool print = false;
 using namespace std;
 int MaximumFlow(const graph& g, int s, int t)
 {
@@ -19,10 +21,10 @@ int MaximumFlow(const graph& g, int s, int t)
 	//res is Residual graph
 	vector<vector<int>> res(g.flow.begin(), g.flow.end());
 	//parent present where from
-	vector<int> parent(g.V, -1);
+	vector<int> parent(g.V);
 
 	//bfs function for search route
-	function<bool(int, int)> bfs = [&](int s, int t)->bool{
+	function<bool(int, int)> bfs = [&](int s, int t)->bool {
 		//queue for bfs
 		queue<int> qu;
 		//visited check
@@ -40,7 +42,7 @@ int MaximumFlow(const graph& g, int s, int t)
 			int n = qu.front(); qu.pop();
 
 			//for loop n to v
-			for (int v = 0; v < g.V; v++)
+			for (size_t v = 0; v < g.V; v++)
 				if (!visited[v] && res[n][v] > 0)
 					visit(v, n);
 		}
@@ -53,12 +55,11 @@ int MaximumFlow(const graph& g, int s, int t)
 	{
 		//init pathflow INF, for renewal
 		int pathflow = INF;
-
 		//renewal pathflow
-		for (int v = t; v != s; v = parent[v])
+		for (size_t v = t; v != s; v = parent[v])
 			pathflow = min(pathflow, res[parent[v]][v]);
 
-		for (int v = t; v != s; v = parent[v])
+		for (size_t v = t; v != s; v = parent[v])
 		{
 			res[parent[v]][v] -= pathflow;
 			res[v][parent[v]] += pathflow;
@@ -72,23 +73,41 @@ int MaximumFlow(const graph& g, int s, int t)
 	return maxflow;
 }
 int main(int argc, char * argv[])
-{
-	//get information of graph
-	fstream fs("graph", std::ios::in);
-	istream * is = &fs;
-	graph g;
-	*is >> g;
-
-	//test 10 times
-	TIME_TEST(test, 1000)
+{if (argc > 1)
 	{
-		MaximumFlow(g, 0, 13);
-	}
-	
-	//result 
-	cout << "result: " << MaximumFlow(g, 0, 13) << endl;
+		fstream ffs(argv[1], std::ios::in);
+		graph g;
+		ffs >> g;
 
-	//execution time
-	cout << "execution time(" << test.repeat << ") total: " << test.total << ", average: " << test.average<< endl;
+		//test 10 times
+		int rresult = 0;
+		TIME_TEST(test, 1000)
+		{
+			rresult = MaximumFlow(g, 0, g.V - 1);
+		}
+
+		string res("result: maxflow: " + to_string(rresult));
+		TEST_END(test, argv[0], res);
+		return 0;
+	}
+
+	string file = "data\\graph";
+	FILE_TEST(file, 10)
+	{
+		fstream fs(file, std::ios::in);
+		graph g;
+		fs >> g;
+
+		//test 10 times
+		int result = 0;
+		TIME_TEST(test, 1000)
+		{
+			result = MaximumFlow(g, 0, g.V - 1);
+		}
+
+		string res("result: maxflow: " + to_string(result));
+		TEST_END(test, file, res);
+	}
+
 	return 0;
 }

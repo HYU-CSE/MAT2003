@@ -1,0 +1,40 @@
+test: data\graph0 is finished!
+result: result: maxflow: 18
+execution time(1000) total: 0.134, average: 0.000134
+
+test: data\graph1 is finished!
+result: result: maxflow: 23
+execution time(1000) total: 0.025, average: 2.5e-005
+
+test: data\graph2 is finished!
+result: result: maxflow: 20
+execution time(1000) total: 0.037, average: 3.7e-005
+
+test: data\graph3 is finished!
+result: result: maxflow: 16
+execution time(1000) total: 0.015, average: 1.5e-005
+
+test: data\graph4 is finished!
+result: result: maxflow: 5
+execution time(1000) total: 0.015, average: 1.5e-005
+
+test: data\graph5 is finished!
+result: result: maxflow: 4
+execution time(1000) total: 0.015, average: 1.5e-005
+
+test: data\graph6 is finished!
+result: result: maxflow: 2
+execution time(1000) total: 0.018, average: 1.8e-005
+
+test: data\graph7 is finished!
+result: result: maxflow: 2
+execution time(1000) total: 0.013, average: 1.3e-005
+
+test: data\graph8 is finished!
+result: result: maxflow: 2
+execution time(1000) total: 0.013, average: 1.3e-005
+
+test: data\graph9 is finished!
+result: result: maxflow: 0
+execution time(1000) total: 0.012, average: 1.2e-005
+
