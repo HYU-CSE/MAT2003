@@ -32,16 +32,14 @@ int mincostflow(const graph& g, const int& s, const int& t, const int& f)
 	function <int(void)> findpath = [&cost, &flow, &cap, &label, &parent, &s, &t](void)->int {
 		//V mean N(number of vertex)
 		int V = cost.size();
-		int u = s;
-
-		//found check visited;
-		vector<bool> found(V, false);
+		pair<int, int> u = {s, 0};
 
 		//dist[n] mean distance s to n
 		//width for return bottleneck of path
 		vector<int> dist(V, INF), width(V, 0);
 
-		bool update = true;
+		priority_queue<pair<int,int>> qu;
+
 		//relax for renew
 		function<void(int s, int t, int cap, int cost, bool dir)> relax = [&](int s, int t, int cap, int cost, bool dir)->void {
 			int value = dist[s] + label[s] - label[t] + cost;
@@ -50,23 +48,25 @@ int mincostflow(const graph& g, const int& s, const int& t, const int& f)
 				dist[t] = value;
 				parent[t] = { s, dir };
 				width[t] = min(cap, width[s]);
-				update = 1;
+				qu.push({t, dist[t]});
 			}
 		};
 
-		dist[u] = 0;
-		width[u] = INF;
+		qu.push(u);
+		dist[u.first] = 0;
+		width[u.first] = INF;
 
-		while (update)
+		while (qu.size())
 		{
-			update = 0;
+			u = qu.top(); qu.pop();
+			if(u.first == V)
+				break;
 
-			for (int i = 0; i < V; i++)
-				for (int j = 0; j < V; j++)
-				{
-					relax(i, j, cap[i][j] - flow[i][j], cost[i][j], true);
-					relax(i, j, flow[j][i], -cost[j][i], false);
-				}
+			for(int v = 0; v < V; v++)
+			{
+				relax(u.first, v, cap[u.first][v] - flow[u.first][v], cost[u.first][v], true);
+				relax(u.first, v, flow[v][u.first], -cost[v][u.first], false);
+			}
 		}
 
 		//check label for minimum value

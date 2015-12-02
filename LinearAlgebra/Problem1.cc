@@ -2,9 +2,11 @@
 #include <fstream>
 #include <vector>
 #include <queue>
+#include <string>
 #include <algorithm>
 #include <functional>
 
+//header include
 #include "headers\graph.h"
 #include "headers\measure.h"
 #include "headers\fileIO.h"
@@ -13,6 +15,7 @@
 
 bool print = false;
 using namespace std;
+
 int MaximumFlow(const graph& g, int s, int t)
 {
 	//maximum flow == return value
@@ -20,15 +23,19 @@ int MaximumFlow(const graph& g, int s, int t)
 
 	//res is Residual graph
 	vector<vector<int>> res(g.flow.begin(), g.flow.end());
-	//parent present where from
+	
+	//parent mean where vertex from
 	vector<int> parent(g.V);
 
 	//bfs function for search route
 	function<bool(int, int)> bfs = [&](int s, int t)->bool {
+
 		//queue for bfs
 		queue<int> qu;
+
 		//visited check
 		vector<bool> visited(g.V, false);
+
 		//visit function for visit [add queue, visit check, parent check]
 		function<void(int, int)> visit = [&](int v, int u)->void {
 			qu.push(v);
@@ -73,13 +80,15 @@ int MaximumFlow(const graph& g, int s, int t)
 	return maxflow;
 }
 int main(int argc, char * argv[])
-{if (argc > 1)
+{
+	//when custom file inputed
+	if (argc > 1)
 	{
 		fstream ffs(argv[1], std::ios::in);
 		graph g;
 		ffs >> g;
 
-		//test 10 times
+		//test 1000 times
 		int rresult = 0;
 		TIME_TEST(test, 1000)
 		{
@@ -91,14 +100,16 @@ int main(int argc, char * argv[])
 		return 0;
 	}
 
+	//default setting
 	string file = "data\\graph";
+	//each graph0~10
 	FILE_TEST(file, 10)
 	{
 		fstream fs(file, std::ios::in);
 		graph g;
 		fs >> g;
 
-		//test 10 times
+		//test 1000 times
 		int result = 0;
 		TIME_TEST(test, 1000)
 		{
