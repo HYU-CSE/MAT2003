@@ -1,40 +1,40 @@
 test: data\graph0 is finished!
 result: result: maxflow: 18
-execution time(10000) total: 0.833, average: 8.33e-005
+execution time(10000) total: 0.343, average: 3.43e-005
 
 test: data\graph1 is finished!
 result: result: maxflow: 4
-execution time(10000) total: 0.234, average: 2.34e-005
+execution time(10000) total: 0.094, average: 9.4e-006
 
 test: data\graph2 is finished!
 result: result: maxflow: 12
-execution time(10000) total: 0.406, average: 4.06e-005
+execution time(10000) total: 0.226, average: 2.26e-005
 
 test: data\graph3 is finished!
 result: result: maxflow: 16
-execution time(10000) total: 0.083, average: 8.3e-006
+execution time(10000) total: 0.047, average: 4.7e-006
 
 test: data\graph4 is finished!
 result: result: maxflow: 5
-execution time(10000) total: 0.074, average: 7.4e-006
+execution time(10000) total: 0.047, average: 4.7e-006
 
 test: data\graph5 is finished!
 result: result: maxflow: 4
-execution time(10000) total: 0.078, average: 7.8e-006
+execution time(10000) total: 0.046, average: 4.6e-006
 
 test: data\graph6 is finished!
 result: result: maxflow: 2
-execution time(10000) total: 0.094, average: 9.4e-006
+execution time(10000) total: 0.047, average: 4.7e-006
 
 test: data\graph7 is finished!
 result: result: maxflow: 2
-execution time(10000) total: 0.078, average: 7.8e-006
+execution time(10000) total: 0.063, average: 6.3e-006
 
 test: data\graph8 is finished!
 result: result: maxflow: 2
-execution time(10000) total: 0.063, average: 6.3e-006
+execution time(10000) total: 0.078, average: 7.8e-006
 
 test: data\graph9 is finished!
 result: result: maxflow: 0
-execution time(10000) total: 0.062, average: 6.2e-006
+execution time(10000) total: 0.094, average: 9.4e-006
 

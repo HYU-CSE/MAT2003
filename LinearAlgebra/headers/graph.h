@@ -1,8 +1,8 @@
 #include <vector>
 #include <iostream>
-#include <fstream>
 
 using namespace std;
+
 typedef struct edge_ {
 	int from, to, cost, flow;
 } edge;

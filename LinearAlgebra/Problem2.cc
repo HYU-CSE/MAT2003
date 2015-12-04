@@ -102,6 +102,8 @@ int mincostflow(const graph& g, const int& s, const int& t, const int& f)
 				tcost -= bot * cost[k][parent[k].first];
 			}
 		}
+		//for debug, print edge 
+		//cout << "edge (" << k << " to " << parent[k].first << ") cost: " << cost[parent[k].first][k] << ", flow: " << bot <<  endl;
 
 		//when tflow == f(given flow) finish loop
 		if (tflow == f)
@@ -127,7 +129,7 @@ int main(int argc, char * argv[])
 
 		//test 1000 times
 		int rresult = 0;
-		TIME_TEST(test, 1000)
+		TIME_TEST(test, 10000)
 		{
 			rresult = mincostflow(g, 0, g.V - 1, fflow);
 		}
@@ -150,7 +152,7 @@ int main(int argc, char * argv[])
 
 		//test 1000 times
 		int result = 0;
-		TIME_TEST(test, 1000)
+		TIME_TEST(test, 10000)
 		{
 			result = mincostflow(g, 0, g.V - 1, flow);
 		}

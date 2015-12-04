@@ -1,40 +1,40 @@
 test: data\graph0 is finished!
 result: result: given flow: 9, cost: 109
-execution time(10000) total: 3.166, average: 0.0003166
+execution time(10000) total: 2.594, average: 0.0002594
 
 test: data\graph1 is finished!
 result: result: given flow: 9, cost: 0
-execution time(10000) total: 1.589, average: 0.0001589
+execution time(10000) total: 0.735, average: 7.35e-005
 
 test: data\graph2 is finished!
 result: result: given flow: 9, cost: 136
-execution time(10000) total: 4.365, average: 0.0004365
+execution time(10000) total: 2.664, average: 0.0002664
 
 test: data\graph3 is finished!
 result: result: given flow: 9, cost: 18
-execution time(10000) total: 0.156, average: 1.56e-005
+execution time(10000) total: 0.141, average: 1.41e-005
 
 test: data\graph4 is finished!
 result: result: given flow: 9, cost: 0
-execution time(10000) total: 0.219, average: 2.19e-005
+execution time(10000) total: 0.177, average: 1.77e-005
 
 test: data\graph5 is finished!
 result: result: given flow: 9, cost: 0
-execution time(10000) total: 0.203, average: 2.03e-005
+execution time(10000) total: 0.172, average: 1.72e-005
 
 test: data\graph6 is finished!
 result: result: given flow: 9, cost: 0
-execution time(10000) total: 0.359, average: 3.59e-005
+execution time(10000) total: 0.23, average: 2.3e-005
 
 test: data\graph7 is finished!
 result: result: given flow: 9, cost: 0
-execution time(10000) total: 0.282, average: 2.82e-005
+execution time(10000) total: 0.219, average: 2.19e-005
 
 test: data\graph8 is finished!
 result: result: given flow: 9, cost: 0
-execution time(10000) total: 0.218, average: 2.18e-005
+execution time(10000) total: 0.156, average: 1.56e-005
 
 test: data\graph9 is finished!
 result: result: given flow: 9, cost: 0
-execution time(10000) total: 0.735, average: 7.35e-005
+execution time(10000) total: 0.344, average: 3.44e-005
 

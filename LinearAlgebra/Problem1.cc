@@ -90,7 +90,7 @@ int main(int argc, char * argv[])
 
 		//test 1000 times
 		int rresult = 0;
-		TIME_TEST(test, 1000)
+		TIME_TEST(test, 10000)
 		{
 			rresult = MaximumFlow(g, 0, g.V - 1);
 		}
@@ -111,7 +111,7 @@ int main(int argc, char * argv[])
 
 		//test 1000 times
 		int result = 0;
-		TIME_TEST(test, 1000)
+		TIME_TEST(test, 10000)
 		{
 			result = MaximumFlow(g, 0, g.V - 1);
 		}
